@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>pong</title>
+</head>
+<style>
+	canvas{
+		position: absolute;
+		margin: auto;
+		right: 0;
+		left: 0;
+		top: 0;
+		bottom: 0;
+	}
+
+</style>
+<body>
+	
+	<script>
+	 
+	var WIDTH = 700 , HEIGHT = 600 , pi = Math.PI;
+	var canvas , ctx , keystate ;
+	var up = 40 , down = 38;
+	var player , ai , ball;
+		
+	
+	ball = { 
+		  	x : null,
+		    y : null,
+			speed : 5,
+			vel : null,
+		
+			side : 20,
+			update : function(){
+				this.x += this.vel.x;
+				this.y += this.vel.y;
+				
+				if(0 > this.y || HEIGHT < (this.y + this.side)){
+					this.vel.y *= -1;
+				}
+					var intersect = function(ax , ay , aw , ah , bx , by , bw , bh){
+						return ax < bx+bw && ay < by+bh && bx < ax+aw && by < ay+ah;
+					}
+					
+					var p = this.vel.x < 0 ? player : ai;
+					if(intersect(p.x , p.y , p.width , p.height , this.x , this.y , this.side , this.side))
+						{
+							 this.vel.x *= -1;
+						}
+					
+				
+			
+		   },
+			draw : function(){
+				ctx.fillRect(this.x , this.y , this.side , this.side);
+			}
+		 };
+	player = {
+			 x : null,
+			 y : null,
+			 
+			  width : 20,
+			  height : 70,
+			 
+			update : function(){
+				if(keystate[up]){
+				this.y += 7;
+			}
+			if(keystate[down]){
+				this.y -= 7;
+			}
+		   },
+			draw : function(){
+				ctx.fillRect(this.x , this.y , this.width , this.height);
+			}
+		};  
+	ai     = {x : null,
+			 y : null,
+			  
+			  width : 20,
+			  height : 70,
+			 
+			update : function(){
+			
+		   },
+			draw : function(){
+				ctx.fillRect(this.x , this.y , this.width , this.height);	
+			} 
+		};
+	
+		
+	function main() {
+		canvas = document.createElement("canvas");
+		canvas.height = HEIGHT;
+		canvas.width = WIDTH;
+		ctx = canvas.getContext("2d");
+		document.body.appendChild(canvas);
+		
+		keystate = {}
+		document.addEventListener("keydown" , function(evt) {
+			keystate[evt.keyCode] = true;	
+		});
+		document.addEventListener("keyup" , function(evt) {
+			delete keystate[evt.keyCode];
+		});
+		
+		init();
+		
+		var loop = function(){
+			update();
+			draw();
+			
+			window.requestAnimationFrame(loop , canvas);
+		}
+	window.requestAnimationFrame(loop , canvas);
+		
+	}
+		
+	function init(){
+			player.x = player.width;
+			player.y = (HEIGHT - player.height)/2;
+		
+			ai.x = WIDTH - (player.width + ai.width);
+			ai.y = (HEIGHT - player.height)/2;
+		
+			ball.x = (WIDTH - ball.side)/2;
+			ball.y = (HEIGHT - ball.side)/2;
+		
+		
+			ball.vel = {
+				x : ball.speed,
+				y : 0
+			}
+	}
+	
+	function update(){
+		
+		player.update();
+		
+		ai.update();
+		
+		ball.update();
+		
+	}
+	
+	function draw(){
+		
+		ctx.fillRect(0,0,WIDTH,HEIGHT);
+		ctx.save();
+		ctx.fillStyle = "#fff";
+		
+		player.draw();
+		
+		ai.draw();
+		
+		ball.draw();
+		
+		var w = 4;
+		var x = (WIDTH - w)*.5;
+		var y = 0;
+		var step = HEIGHT/20;
+		while(y < HEIGHT){
+			ctx.fillRect(x, y+step*.25 , w , step*.5);
+			y += step;
+		}
+		
+		ctx.restore();
+		
+	}
+	
+	
+	main();
+	</script>
+	
+</body>
+</html>
