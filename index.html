@@ -19,6 +19,32 @@
 </head>
 <body>
 <script>
+function togglePause()
+{
+	canvas1 = document.createElement("canvas");
+	canvas1.width = WIDTH;
+	canvas1.height = HEIGHT;
+	ctx1 = canvas1.getContext("2d");
+	document.body.appendChild(canvas1);
+	
+    if (!paused)
+    {
+		delete ctx1;
+      paused = true;
+    } else if (paused)
+    {
+		ctx.save();
+	
+		
+		ctx1.beginPath();
+		ctx1.lineWidth = "635";
+		ctx1.strokeStyle = "red";
+		ctx1.rect(5, 5, 290, 140);  
+		ctx1.stroke();
+       paused= false;
+    }
+
+}
 var
 
 /**
@@ -31,13 +57,18 @@ pi = Math.PI,
 
 UpArrow   = 38,
 DownArrow = 40,
-
+paused = false,
+p = 80,
 /**
  * Game elements
  */
 canvas,
 ctx,
 keystate,
+text1 = 0,
+text2 = 0,
+// function for player pause
+
 
 /**
  * The player paddle
@@ -50,13 +81,16 @@ player = {
 
 	width:  20,
 	height: 100,
-
+	
+	
 	/**
 	 * Update the position depending on pressed keys
 	 */
 	update: function() {
 		if (keystate[UpArrow]) this.y -= 7;
 		if (keystate[DownArrow]) this.y += 7;
+		 
+		
 		// keep the paddle inside of the canvas
 		this.y = Math.max(Math.min(this.y, HEIGHT - this.height), 0);
 	},
@@ -175,8 +209,15 @@ ball = {
 
 		// reset the ball when ball outside of the canvas in the
 		// x direction
-		if (0 > this.x+this.side || this.x > WIDTH) {
+		if (0 > this.x+this.side){
+			
+			text2 += 1;
 			this.serve(pdle===player ? 1 : -1);
+		}
+		else if(this.x > WIDTH){
+			text1 += 1;
+			this.serve(pdle===player ? 1 : -1);
+			
 		}
 	},
 
@@ -208,13 +249,30 @@ function main() {
 		delete keystate[evt.keyCode];
 	});
 
+		window.addEventListener('keydown', function (e) {
+var key = e.keyCode;
+if (key === 80)// p key
+{
+    togglePause();
+	
+}
+});
+	
+	
 	init(); // initiate game objects
 
 	// game loop function
 	var loop = function() {
-		update();
+	
+  
+		
+		if(!paused)
+		{update();}
+			
+		
+		
 		draw();
-
+		
 		window.requestAnimationFrame(loop, canvas);
 	};
 	window.requestAnimationFrame(loop, canvas);
@@ -251,6 +309,16 @@ function draw() {
 	ctx.save();
 
 	ctx.fillStyle = "#fff";
+	
+	
+	ctx.fillStyle = "white";
+	ctx.font = "small-caps 40px Arial";
+	ctx.fillText(text1.toString(),WIDTH/4,HEIGHT/11);
+	
+	
+	ctx.fillStyle = "white";
+	ctx.font = "small-caps 40px Arial";
+	ctx.fillText(text2.toString(),3*WIDTH/4,HEIGHT/11);
 
 	ball.draw();
 	player.draw();
