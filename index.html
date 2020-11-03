@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<meta charset="UTF-8">
 	<title>Pong</title>
 
@@ -15,6 +19,15 @@
 		left: 0;
 		right: 0;
 	}
+	
+		#myBtn3{
+		position: absolute;
+		margin: auto;
+		top: 800px;
+		right: 1239px;
+		left: auto;
+		bottom: auto;
+		}
 	</style>
 </head>
 <body>
@@ -23,29 +36,61 @@
 <audio src="audio/8bit_status_114.mp3" id="audio2"></audio>
 <audio src="audio/8-bit-pong-sound_WM.mp3" id="audio3"></audio>
 <audio src="audio/043289731_prev.wav" id="audio4"></audio>
+	
+	
+	
+	
+<!--modal-->
+
+	
+<div class="container">
+ 
+  <!-- Trigger the modal with a button -->
+
+  <button type="button" class="btn btn-info btn-md" id="myBtn3">PAUSE</button>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">PAUSE</h4>
+        </div>
+        <div class="modal-body">
+          <p id="text"></p>
+		  <label for="mute">Mute Volume ?</label>
+		  <input type="checkbox" id="mute">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+	
+	
 <script>
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+	
+	const start = Date.now();
 function togglePause()
 {
-	canvas1 = document.createElement("canvas");
-	canvas1.width = WIDTH;
-	canvas1.height = HEIGHT;
-	ctx1 = canvas1.getContext("2d");
-	document.body.appendChild(canvas1);
-	
     if (!paused)
     {
-		delete ctx1;
       paused = true;
     } else if (paused)
     {
-		ctx.save();
 	
-		
-		ctx1.beginPath();
-		ctx1.lineWidth = "635";
-		ctx1.strokeStyle = "red";
-		ctx1.rect(5, 5, 290, 140);  
-		ctx1.stroke();
+	
+
        paused= false;
     }
 
@@ -62,6 +107,8 @@ sound = document.getElementById("audio4"),
 sound1 = document.getElementById("audio1"),
 sound2 = document.getElementById("audio2"),
 sound3 = document.getElementById("audio3"),
+	
+mute = document.getElementById("mute"),
 
 	
 pi = Math.PI,
@@ -167,7 +214,13 @@ ball = {
 	 *                       -1 left
 	 */
 	
+
+
+// expected output: starting timer...
+
+
 	serve: function(side) {
+		//wait		
 		r = Math.random();
 		this.x = side===1 ? player.x+player.width : ai.x - this.side;
 		this.y = (HEIGHT - this.side)*r;
@@ -248,6 +301,7 @@ nd keep it within the canvas
 				sound2.currentTime = 0;
 				sound2.play();
 				soundflag = false;
+		
 		}
 		else if(this.x > WIDTH){
 			text1 += 1;
@@ -257,6 +311,7 @@ nd keep it within the canvas
 				sound2.currentTime = 0;
 				sound2.play();
 				soundflag = false;
+		
 		}
 	},
 
@@ -292,14 +347,34 @@ function main() {
 		delete keystate[evt.keyCode];
 	});
 
-		window.addEventListener('keydown', function (e) {
-var key = e.keyCode;
-if (key === 80)// p key
-{
-    togglePause();
+
 	
-}
+			
+		$(document).ready(function(){
+
+  		$("#myBtn3").click(function(){
+    	$("#myModal3").modal({backdrop: "static"});
+	  		togglePause();
+		document.getElementById("text").innerHTML = "The Score Is - " + text1;
+  });
 });
+	
+		$(document).ready(function(){
+
+  		$("#close").click(function(){
+    	
+	  		togglePause();
+  });
+});
+	
+	if(mute.checked){
+		sound.volume = 0;
+		sound1.volume = 0;
+		sound2.volume = 0;
+		sound3.volume = 0;
+		
+	}
+
 	
 	
 	init(); // initiate game objects
@@ -326,6 +401,8 @@ function init() {
 	ai.x = WIDTH - (player.width + ai.width);
 	ai.y = (HEIGHT - ai.height)/2;
 
+	
+	
 	ball.serve(1);
 }
 
@@ -376,6 +453,10 @@ function draw() {
 
 // start and run the game
 main();
+	
+	
+	
+
 </script>
 </body>
 </html>
