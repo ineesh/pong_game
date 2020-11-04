@@ -401,6 +401,16 @@ function main() {
   });
 });
 	
+	
+	
+		$(document).ready(function(){
+
+  		$("#myBtn4").click(function(){
+    	
+	  		init();
+  });
+});
+	
 	if(mute.checked){
 		sound.volume = 0;
 		sound1.volume = 0;
@@ -435,7 +445,8 @@ function init() {
 	ai.x = WIDTH - (player.width + ai.width);
 	ai.y = (HEIGHT - ai.height)/2;
 
-	
+	text1 = 0;
+	text2 = 0;
 	
 	ball.serve(1);
 }
