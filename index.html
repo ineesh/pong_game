@@ -3,6 +3,7 @@
 <head>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<meta charset="UTF-8">
@@ -10,7 +11,28 @@
 
 	<!-- Basic styling, centering the canvas -->
 	<style>
+		body{
+			background-color: #F5EC2B;
+		}
+		
+		#myBtn3{
+			display: block;
+			
+			position: absolute;
+			top: 86%;
+			left: 22%;
+			
+		}
+		#myBtn4{
+			display: block;
+			
+			position: absolute;
+			top: 86%;
+			left: 75%;
+			
+		}
 	canvas {
+		
 		display: block;
 		position: absolute;
 		margin: auto;
@@ -19,35 +41,47 @@
 		left: 0;
 		right: 0;
 	}
-	
-		#myBtn3{
+		img{
+			  
 		position: absolute;
-		margin: auto;
-		top: 800px;
-		right: 1239px;
-		left: auto;
-		bottom: auto;
+ 			
+			width: 60%;
+			margin: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		}
+
+
 	</style>
 </head>
 <body>
+	<div class="con">
+		<img src="images/pong_img.png">
+		<button type="button" id="myBtn3" class="w3-button w3-xlarge w3-circle w3-teal">+</button>
+		<button type="button" id="myBtn4" class="w3-button w3-xlarge w3-circle w3-teal">+</button>
+	</div>
+<canvas id="mycanva"></canvas>
+	
 	
 <audio src="audio/8bit_status_74.mp3" id="audio1"></audio>
 <audio src="audio/8bit_status_114.mp3" id="audio2"></audio>
 <audio src="audio/8-bit-pong-sound_WM.mp3" id="audio3"></audio>
 <audio src="audio/043289731_prev.wav" id="audio4"></audio>
 	
+ 
+
+
+
 	
-	
-	
-<!--modal-->
 
 	
 <div class="container">
  
   <!-- Trigger the modal with a button -->
 
-  <button type="button" class="btn btn-info btn-md" id="myBtn3">PAUSE</button>
+ 
 
 
   <!-- Modal -->
@@ -57,7 +91,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
+         
           <h4 class="modal-title">PAUSE</h4>
         </div>
         <div class="modal-body">
@@ -187,7 +221,7 @@ ai = {
 	},
 
 	/**
-	 * Draw the ai paddle to the canvas
+ 	 * Draw the ai paddle to the canvas
 	 */
 	draw: function() {
 		ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -332,7 +366,7 @@ nd keep it within the canvas
  */
 function main() {
 	// create, initiate and append game canvas
-	canvas = document.createElement("canvas");
+	canvas = document.getElementById("mycanva");
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
 	ctx = canvas.getContext("2d");
