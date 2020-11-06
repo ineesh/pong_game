@@ -81,16 +81,31 @@
 			width: 50%;
 			
 		}
+		#over{
+				
+  position: fixed; 
+  display: none; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2; 
+  cursor: pointer; 
+
+			
+		}
+		
 		video{
-				position: absolute;
- 			
-			width: 60%;
+			background-color: black;
+			position: absolute;
+ 			width: 40%;
+			height: 60%;
 			margin: auto;
 		top: 0;
 		bottom: 0;
 		left: 0;
 		right: 0;
-			
+		opacity: 0.5;
 		}
 	
 
@@ -103,14 +118,17 @@
 		<button type="button" id="myBtn4" class="w3-button w3-xlarge w3-circle w3-teal">+</button>
 	
     
-	<video controls src="images/3 2 1 GO! Smash Ultimate Green Screen HD (1).mp4">
-	</video>
 
 	</div>
 	
-		
+<div id="over">
+<video src="images/3 2 1 GO! Smash Ultimate Green Screen HD (1).mp4" id="vid">
+	</video>
+</div>
 <canvas id="mycanva"></canvas>
-	
+
+		
+
 	
 <audio src="audio/8bit_status_74.mp3" id="audio1"></audio>
 <audio src="audio/8bit_status_114.mp3" id="audio2"></audio>
@@ -441,12 +459,15 @@ function main() {
 
   		$("#close").click(function(){
     	
-		
+			document.getElementById("over").style.display = "block";
+			document.getElementById("vid").play();
 			setTimeout(function(){
 				togglePause();
+				document.getElementById("over").style.display = "none";
 				
-				
-			},3000);
+			},4000);
+			
+			
 	  		
   });
 });
