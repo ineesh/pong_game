@@ -11,6 +11,8 @@
 
 	<!-- Basic styling, centering the canvas -->
 	<style>
+	@import url("sf_distant_galaxy_regular/stylesheet.css");
+
 		body{
 			background-color: #F5EC2B;
 		}
@@ -52,7 +54,45 @@
 		left: 0;
 		right: 0;
 		}
-
+		.modal-content{
+			font-family: "sf distant galaxy regular";
+			background-color: transparent;
+			color: white;
+			height: 50%;
+			background-image: url("images/pong-pause.gif");
+			background-position: center;
+			
+		
+		}
+		
+		.modal-title{
+    font-family: "sf distant galaxy regular";
+			padding: 50px;
+			height: 50%;
+		}
+		
+		.modal-dialog{
+			position: absolute;
+			display: block;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			width: 50%;
+			
+		}
+		video{
+				position: absolute;
+ 			
+			width: 60%;
+			margin: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+			
+		}
+	
 
 	</style>
 </head>
@@ -61,7 +101,14 @@
 		<img src="images/pong_img.png">
 		<button type="button" id="myBtn3" class="w3-button w3-xlarge w3-circle w3-teal">+</button>
 		<button type="button" id="myBtn4" class="w3-button w3-xlarge w3-circle w3-teal">+</button>
+	
+    
+	<video controls src="images/3 2 1 GO! Smash Ultimate Green Screen HD (1).mp4">
+	</video>
+
 	</div>
+	
+		
 <canvas id="mycanva"></canvas>
 	
 	
@@ -72,9 +119,6 @@
 	
  
 
-
-
-	
 
 	
 <div class="container">
@@ -141,7 +185,7 @@ sound = document.getElementById("audio4"),
 sound1 = document.getElementById("audio1"),
 sound2 = document.getElementById("audio2"),
 sound3 = document.getElementById("audio3"),
-	
+		
 mute = document.getElementById("mute"),
 
 	
@@ -397,7 +441,13 @@ function main() {
 
   		$("#close").click(function(){
     	
-	  		togglePause();
+		
+			setTimeout(function(){
+				togglePause();
+				
+				
+			},3000);
+	  		
   });
 });
 	
