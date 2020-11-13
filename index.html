@@ -43,6 +43,7 @@
 		left: 0;
 		right: 0;
 	}
+
 		img{
 			  
 		position: absolute;
@@ -429,6 +430,11 @@ nd keep it within the canvas
 function main() {
 	// create, initiate and append game canvas
 	canvas = document.getElementById("mycanva");
+	if(screen.width < 1500){
+		
+		WIDTH = 500;
+		HEIGHT = 450;
+	}
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
 	ctx = canvas.getContext("2d");
