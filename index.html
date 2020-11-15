@@ -4,6 +4,9 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<meta charset="UTF-8">
@@ -145,9 +148,52 @@
 			height: 25%;
 		}
 		
+		
+		section{
+			min-height: 100vh;
+	
+			
+		}
+	
+		h1{
+			font-family: 'Montserrat', sans-serif;
+
+		}
+		#img{
+    background-image: url("images/p77nmnktfl021.jpg");
+   
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    border-radius: 10px;
+    height: 500px;
+		}
+		
+	
+		#rect{
+			
+
+		  text-align: left;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-48%, -70%);
+color: white;
+		}
+		h1{
+    color: #F5EC2B;
+    text-shadow: 5px 5px #4F3D3D;
+						 background-image: -webkit-linear-gradient(0deg,rgba(0,150,136,1.00) 0%,rgba(1,1,1,0.00) 100%,rgba(1,1,1,1.00) 100%);
+    background-image: -moz-linear-gradient(0deg,rgba(0,150,136,1.00) 0%,rgba(1,1,1,0.00) 100%,rgba(1,1,1,1.00) 100%);
+    background-image: -o-linear-gradient(0deg,rgba(0,150,136,1.00) 0%,rgba(1,1,1,0.00) 100%,rgba(1,1,1,1.00) 100%);
+    background-image: linear-gradient(90deg,rgba(0,150,136,1.00) 0%,rgba(1,1,1,0.00) 100%,rgba(1,1,1,1.00) 100%);
+		}
+
 	</style>
 </head>
 <body>
+	
+	 <section id="1">
 	<div class="con">
 		<img src="images/pong_img.png">
 		<button type="button" id="myBtn3" class="w3-button w3-xlarge w3-circle w3-teal" style="width: 3%; height: 6%"><img src="images/img_60312.png" style="width: 100%; height: 100%"></button>
@@ -158,7 +204,7 @@
 
 	</div>
 	
-	<div id="over2">
+	<div id="over2" data-aos="fade-in">
 		
 	<img src="images/pause.png"  id="play">
 	</div>
@@ -209,9 +255,33 @@
     </div>
   </div>
 </div>
+		 
+</section>
 	
 	
+	
+	
+<section id="2">
+	
+	
+	<div id="img" data-aos="zoom-in-down">
+	
+			<div id="rect">
+		<h1 style="font-size: 6em" data-aos="zoom-in-down">Rules</h1>
+		<br>
+		<h1 style="font-size: 6em" data-aos="zoom-in-down">And Regulations</h1>
+				</div>
+		
+	</div>
+	
+	
+	
+	</section>
+	
+	
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
+	AOS.init();
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -664,6 +734,8 @@ function music(){
 	
 });
 }
+	document.getElementById("over2").style.display = "block";
+	  		togglePause();
 			main();
 		
 		
@@ -675,5 +747,6 @@ function music(){
 	
 
 </script>
+	 
 </body>
 </html>
