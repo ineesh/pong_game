@@ -206,10 +206,38 @@ color: white;
     background-image: linear-gradient(90deg,rgba(0,150,136,1.00) 0%,rgba(1,1,1,0.00) 100%,rgba(1,1,1,1.00) 100%);
 		}
 
+		
+		
+	'	
+'		#l{
+'			
+'			  animation: mymove 5s;
+'  			perspective: 200px;
+'			position: relative;
+'			
+'		}
+'		@keyframes mymove {
+'			0% {perspective: 1111110px;}
+'  			50% {perspective: 100px;}
+'			100% {perspective: 1111110px;}
+'}
+'		
+'		#m1{
+'			  position: absolute;
+'			 transform : rotate3D(21,2,2,1435deg);
+'		}
+'		#m2{
+'			 position: absolute;
+'			 transform : rotate3D(21,2,2,435deg);
+'		}
 	</style>
 </head>
 <body>
 		
+<div id="l">
+	
+	
+		<div id="m1">
 	 <section id="1">
 	<div class="con">
 		<img src="images/pong_img.png">
@@ -263,6 +291,8 @@ color: white;
         </div>
         <div class="modal-body">
           <p id="text"></p>
+		  <label for="ran">Random Effects ?</label>
+		  <input type="checkbox" id="ran">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
@@ -277,10 +307,10 @@ color: white;
 	<button type="button" id="myBtn7" class="w3-button w3-xlarge w3-circle w3-teal" style="width: 3%; height: 6%"><img src="images/down.svg" style="width: 100%; height: 100%"></button>
 </a>
 </section>
-	
+	</div>
 	
 
-	
+	<div id="m2">
 <section id="2">
 	
 	
@@ -300,16 +330,14 @@ color: white;
 
 	</a>
 	</section>
-	
-	
+	</div>
+		
+		
+</div>	
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
 	AOS.init();
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-	
-	const start = Date.now();
+
 function togglePause()
 {
     if (!paused)
@@ -375,10 +403,24 @@ player = {
 	 * Update the position depending on pressed keys
 	 */
 	update: function() {
-		if (keystate[UpArrow]) this.y -= 7;
-		if (keystate[DownArrow]) this.y += 7;
-		 
+		if(document.getElementById("ran").checked){
 		
+			
+			if(t >= 0.5){
+				if (keystate[DownArrow]) this.y -= 7;
+				if (keystate[UpArrow]) this.y += 7;
+		
+				
+			}
+			else{	
+				if (keystate[UpArrow]) this.y -= 7;
+				if (keystate[DownArrow]) this.y += 7;
+			}
+		}
+		else{
+		if (keystate[UpArrow]) this.y -= 7;
+				if (keystate[DownArrow]) this.y += 7;
+		}
 		// keep the paddle inside of the canvas
 		this.y = Math.max(Math.min(this.y, HEIGHT - this.height), 0);
 	},
@@ -423,6 +465,12 @@ ai = {
 	}
 },
 
+	
+	
+	
+	
+	
+	
 /**	
  * The ball object
  * 
@@ -451,6 +499,26 @@ ball = {
 	serve: function(side) {
 		//wait		
 		r = Math.random();
+		
+		if(document.getElementById("ran").checked){
+			
+			if(r >= 0.7)
+			this.side = 20;
+			else
+			this.side = 10;
+			
+			
+			if(r >= 0.5){
+				this.speed = 20;
+			}
+			else{
+				this.speed = 12;
+			}
+		}
+		else{
+			this.side = 10;
+		}
+		
 		this.x = side===1 ? player.x+player.width : ai.x - this.side;
 		this.y = (HEIGHT - this.side)*r;
 		// calculate out-angle, higher/lower on the y-axis =>
@@ -460,10 +528,15 @@ ball = {
 		this.vel = {
 			x: side*this.speed*Math.cos(phi),
 			y: this.speed*Math.sin(phi)
+			
+			
+			
 		}
 		
 		
 	},
+	
+
 
 	/**
 	 * Update the ball 	},
@@ -556,6 +629,10 @@ nd keep it within the canvas
 	}
 };
 
+	
+		
+
+	
 /**
  * Starts the game
  */
@@ -573,6 +650,7 @@ function main() {
 	document.body.appendChild(canvas);
 
 	keystate = {};
+	
 	// keep track of keyboard presses
 	document.addEventListener("keydown", function(evt) {
 		keystate[evt.keyCode] = true;
@@ -592,8 +670,16 @@ function main() {
   });
 			
 		$("#myBtn6").click(function(){
-    		$("#myModal3").modal({backdrop: "static"});
+			
+			if(document.getElementById("over2").style.display === "block")
+				{
+					
+				}
+			else{
 	  		togglePause();
+			}
+    		$("#myModal3").modal({backdrop: "static"});
+	  		
 		document.getElementById("text").innerHTML = "The Score Is - " + text1;
   });
 });
@@ -601,16 +687,23 @@ function main() {
 	$(document).ready(function(){
 
   		$("#close").click(function(){
-    	
+    		if(document.getElementById("over2").style.display === "block")
+				{
+					
+				}
+			else{
+	  		
+			
 			document.getElementById("over").style.display = "block";
 			document.getElementById("vid").play();
 			setTimeout(function(){
 				togglePause();
 				document.getElementById("over").style.display = "none";
+			
 				
 			},4000);
 			
-			
+			}
 	  		
   });
 });
@@ -717,6 +810,9 @@ function init() {
 	text2 = 0;
 	
 	ball.serve(1);
+	t = Math.random();
+	
+	
 }
 
 /**	ball.serve(2);
@@ -725,6 +821,7 @@ gam * Update all game objects
 	ball.update();
 	player.update();
 	ai.update();
+	
 }
 
 /**
@@ -735,7 +832,9 @@ function draw() {
 
 	ctx.save();
 
-	ctx.fillStyle = "#fff";
+	
+	
+	ctx.fillStyle = "#FFFF";
 	
 	
 	ctx.fillStyle = "white";
@@ -750,7 +849,8 @@ function draw() {
 	ball.draw();
 	player.draw();
 	ai.draw();
-
+	
+	
 	// draw the net
 	var w = 4;
 	var x = (WIDTH - w)*0.5;
